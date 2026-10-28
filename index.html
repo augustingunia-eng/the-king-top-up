@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>THE_KING TOP UP</title>
+<style>
+body{margin:0;background:#0b0b0d;color:white;font-family:Arial,sans-serif;text-align:center}
+header{padding:28px 12px;border-bottom:2px solid #e5bd52}
+h1{color:#e5bd52}
+main{max-width:520px;margin:auto;padding:20px}
+.notice{padding:14px;background:#292313;border-radius:10px;color:#ffe08a}
+.packs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
+button{padding:16px;border-radius:10px;border:1px solid #e5bd52;background:#191919;color:white;font-size:16px}
+button.selected{background:#594719}
+input{width:95%;box-sizing:border-box;padding:13px;margin:8px 0;background:#191919;color:white;border:1px solid #555;border-radius:8px;font-size:16px}
+#result{overflow-wrap:anywhere;margin-top:18px}
+footer{padding:20px;color:#aaa;font-size:13px}
+</style>
+</head>
+<body>
+<header>
+<div style="font-size:38px">👑</div>
+<h1>THE_KING TOP UP</h1>
+<p>Recharge Free Fire 💎</p>
+</header>
+<main>
+<div class="notice">VERSION TEST<br>Les paiements et la livraison ne sont pas encore activés. Ne payez pas sur cette version.</div>
+<h2>Choisissez votre pack</h2>
+<div class="packs">
+<button type="button" data-pack="110 diamants">💎 110</button>
+<button type="button" data-pack="210 diamants">💎 210</button>
+<button type="button" data-pack="341 diamants">💎 341</button>
+<button type="button" data-pack="Autre pack">💎 Autre</button>
+</div>
+<form id="f">
+<input id="uid" required placeholder="ID joueur Free Fire (UID)">
+<input id="phone" required type="tel" placeholder="Votre numéro de téléphone">
+<button type="submit" style="width:100%;background:#e5bd52;color:#111">Préparer la commande test</button>
+</form>
+<p id="result"></p>
+</main>
+<footer>THE_KING TOP UP 👑<br>Version de démonstration</footer>
+<script>
+let pack="";
+document.querySelectorAll("[data-pack]").forEach(b=>b.onclick=()=>{
+ pack=b.dataset.pack;
+ document.querySelectorAll("[data-pack]").forEach(x=>x.classList.remove("selected"));
+ b.classList.add("selected");
+});
+document.getElementById("f").onsubmit=e=>{
+ e.preventDefault();
+ if(!pack){alert("Choisissez un pack");return}
+ document.getElementById("result").textContent=
+ "TEST uniquement — "+pack+" | UID : "+document.getElementById("uid").value+
+ " | Contact : "+document.getElementById("phone").value+
+ ". Aucune commande réelle ni aucun paiement effectué.";
+};
+</script>
+</body>
+</html>
