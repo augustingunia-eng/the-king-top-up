@@ -1,62 +1,266 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#071a13">
 <title>THE_KING TOP UP</title>
 <style>
-body{margin:0;background:#0b0b0d;color:white;font-family:Arial,sans-serif;text-align:center}
-header{padding:28px 12px;border-bottom:2px solid #e5bd52}
-h1{color:#e5bd52}
-main{max-width:520px;margin:auto;padding:20px}
-.notice{padding:14px;background:#292313;border-radius:10px;color:#ffe08a}
-.packs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
-button{padding:16px;border-radius:10px;border:1px solid #e5bd52;background:#191919;color:white;font-size:16px}
-button.selected{background:#594719}
-input{width:95%;box-sizing:border-box;padding:13px;margin:8px 0;background:#191919;color:white;border:1px solid #555;border-radius:8px;font-size:16px}
-#result{overflow-wrap:anywhere;margin-top:18px}
-footer{padding:20px;color:#aaa;font-size:13px}
+:root{--bg:#06150f;--panel:#0d2119;--panel2:#12291f;--lime:#b6ff39;--green:#24d18a;--gold:#e9bd55;--text:#f5fff8;--muted:#a9bdb1;--line:#254536}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(145deg,#07150f,#020906 70%);color:var(--text);font-family:Arial,Helvetica,sans-serif}
+header{height:64px;position:sticky;top:0;z-index:5;background:#081810ed;backdrop-filter:blur(12px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 15px}
+.brand{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(140deg,var(--lime),var(--green));color:#07150e;display:grid;place-items:center;font-size:20px}
+.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:1.5px;margin-top:3px}
+.wallet-chip{background:#193628;border:1px solid #386b4e;border-radius:20px;padding:8px 11px;color:var(--lime);font-size:12px;font-weight:700}
+main{max-width:760px;margin:auto;padding:18px 15px 95px}
+.view{display:none}
+.view.active{display:block}
+.hero{border:1px solid #234632;border-radius:20px;padding:23px 19px;background:radial-gradient(circle at 80% 15%,#244b28,#0a1c14 58%);overflow:hidden}
+.kicker{color:var(--lime);font-size:11px;font-weight:800;letter-spacing:2px}
+.hero h1{font-size:34px;line-height:1.05;margin:12px 0}
+.hero h1 span{color:var(--lime)}
+.hero p{color:#c1d1c7;line-height:1.55;font-size:13px;max-width:430px}
+.cta{display:inline-block;background:var(--lime);color:#0a190e;border:0;border-radius:10px;padding:13px 18px;font-weight:800;margin-top:9px;cursor:pointer}
+.notice{margin:16px 0;padding:15px;border-radius:15px;background:#2b2612;border:1px solid #65552b;color:#f3df9d;text-align:center;font-size:13px;line-height:1.5}
+.notice b{display:block;color:var(--gold);margin-bottom:5px}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:22px 0 12px}
+.section-head h2{font-size:19px;margin:0}
+.muted{color:var(--muted);font-size:12px}
+.search{width:100%;padding:13px 14px;background:#f5fbf7;border:0;border-radius:10px;color:#102017;font-size:14px;margin:10px 0}
+.filters{display:flex;gap:8px;overflow:auto;padding:3px 0 10px}
+.filter{white-space:nowrap;border:1px solid var(--line);border-radius:20px;background:#10251b;color:#dce9e0;padding:8px 13px;font-size:12px}
+.filter.active{background:var(--lime);color:#10200f;border-color:var(--lime);font-weight:800}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.product{background:#f3f8f4;color:#0d1a13;border-radius:14px;overflow:hidden;border:1px solid #dce8df}
+.product .art{height:95px;background:linear-gradient(135deg,#101d16,#263b2b);display:grid;place-items:center;font-size:42px}
+.product .info{padding:11px}
+.product h3{font-size:14px;margin:0 0 7px}
+.product .price{font-size:14px;font-weight:900;color:#13834d}
+.product small{display:block;color:#617267;margin-top:5px;font-size:10px}
+.buy{background:#153b26;color:#d8ff9d;border:0;border-radius:8px;padding:9px;width:100%;margin-top:10px;font-weight:800}
+.panel{background:linear-gradient(145deg,#10251b,#0a1b13);border:1px solid var(--line);border-radius:17px;padding:17px;margin-top:15px}
+.panel h2,.panel h3{margin:0 0 13px}
+.field{margin:12px 0}
+.field label{display:block;color:#c5d4ca;font-size:12px;margin-bottom:7px}
+.field input,.field select{width:100%;border:1px solid #345440;border-radius:10px;background:#07150e;color:white;padding:13px;font-size:14px}
+.full{width:100%;border:0;border-radius:10px;background:linear-gradient(90deg,var(--lime),#55e5a2);padding:14px;color:#0b1b10;font-weight:900;margin-top:10px}
+.rowbtn{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.secondary{border:1px solid var(--line);background:#10251b;color:#ecfff1;padding:13px;border-radius:10px;font-weight:700}
+.balance{font-size:34px;font-weight:900;margin:7px 0}
+.balance small{font-size:13px;color:var(--muted)}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}
+.stat{background:#10251b;border:1px solid var(--line);border-radius:13px;padding:14px}
+.stat b{display:block;color:var(--lime);font-size:21px}
+.stat span{font-size:11px;color:var(--muted)}
+.transaction{padding:12px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:8px;font-size:12px}
+.positive{color:var(--green)}
+.negative{color:#ff8888}
+.bottom{position:fixed;bottom:0;left:0;right:0;z-index:8;background:#081810f5;border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:9px 4px calc(9px + env(safe-area-inset-bottom));backdrop-filter:blur(12px)}
+.nav{border:0;background:none;color:#9cb0a3;font-size:10px;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:54px}
+.nav span{font-size:19px}
+.nav.active{color:var(--lime);font-weight:800}
+.modal{position:fixed;inset:0;background:#000b;z-index:20;display:none;align-items:flex-end;justify-content:center}
+.modal.show{display:flex}
+.sheet{width:100%;max-width:600px;background:#0c2017;border:1px solid #345640;border-radius:22px 22px 0 0;padding:20px 18px 30px;max-height:90vh;overflow:auto}
+.sheettop{display:flex;justify-content:space-between;align-items:center}
+.close{background:#1b3527;color:white;border:0;border-radius:9px;padding:8px 12px}
+footer{text-align:center;color:#80968a;font-size:10px;padding:22px 0}
+@media(min-width:620px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.hero{padding:32px}.hero h1{font-size:44px}}
 </style>
 </head>
 <body>
 <header>
-<div style="font-size:38px">👑</div>
-<h1>THE_KING TOP UP</h1>
-<p>Recharge Free Fire 💎</p>
+<div class="brand"><div class="logo">♛</div><div>THE_KING TOP UP<small>FREE FIRE • HAITI</small></div></div>
+<div class="wallet-chip" id="topBalance">🟢 0,00 HTG</div>
 </header>
 <main>
-<div class="notice">VERSION TEST<br>Les paiements et la livraison ne sont pas encore activés. Ne payez pas sur cette version.</div>
-<h2>Choisissez votre pack</h2>
-<div class="packs">
-<button type="button" data-pack="110 diamants">💎 110</button>
-<button type="button" data-pack="210 diamants">💎 210</button>
-<button type="button" data-pack="341 diamants">💎 341</button>
-<button type="button" data-pack="Autre pack">💎 Autre</button>
+<section class="view active" id="home">
+<div class="hero">
+<div class="kicker">RAPIDE • SIMPLE • SÉCURISÉ</div>
+<h1>Rechargez.<br><span>Jouez.</span><br>Sans attendre.</h1>
+<p>Découvrez nos offres Free Fire et préparez votre recharge en quelques étapes.</p>
+<button class="cta" onclick="showView('shop')">Explorer la boutique →</button>
 </div>
-<form id="f">
-<input id="uid" required placeholder="ID joueur Free Fire (UID)">
-<input id="phone" required type="tel" placeholder="Votre numéro de téléphone">
-<button type="submit" style="width:100%;background:#e5bd52;color:#111">Préparer la commande test</button>
-</form>
-<p id="result"></p>
+<div class="notice"><b>VERSION DE DÉMONSTRATION</b>Les paiements et la livraison ne sont pas encore activés. Ne payez pas sur cette version.</div>
+<div class="section-head"><h2>Offres populaires</h2><span class="muted" onclick="showView('shop')">Tout voir →</span></div>
+<div class="grid" id="homeProducts"></div>
+</section>
+
+<section class="view" id="shop">
+<div class="section-head"><h2>GELIN TOP UP</h2><span class="muted">THE_KING</span></div>
+<input class="search" id="search" placeholder="⌕ Rechercher un produit..." oninput="renderProducts()">
+<div class="filters">
+<button class="filter active" onclick="setFilter('all',this)">Tout</button>
+<button class="filter" onclick="setFilter('diamond',this)">💎 Diamonds</button>
+<button class="filter" onclick="setFilter('pass',this)">🎟 Booyah Pass</button>
+<button class="filter" onclick="setFilter('member',this)">👑 Abonnements</button>
+</div>
+<div class="muted" id="resultCount">10 résultats</div>
+<div class="grid" id="products"></div>
+</section>
+
+<section class="view" id="wallet">
+<div class="panel">
+<div class="muted">Mon portefeuille THE_KING</div>
+<div class="balance" id="balance">0,00 HTG</div>
+<div class="muted">Solde disponible (démo)</div>
+<button class="full" onclick="openDeposit()">＋ Ajouter des fonds</button>
+<div class="rowbtn">
+<button class="secondary" onclick="alert('Le transfert interne sera disponible dans une prochaine version.')">➤ Transfert interne</button>
+<button class="secondary" onclick="alert('Achat avec solde : démonstration uniquement.')">Acheter avec mon solde</button>
+</div>
+</div>
+<div class="stats">
+<div class="stat"><b>0</b><span>Commandes</span></div>
+<div class="stat"><b>0</b><span>Dépôts</span></div>
+<div class="stat"><b>0</b><span>Mouvements</span></div>
+<div class="stat"><b>0</b><span>En attente</span></div>
+</div>
+<div class="panel"><h3>Transactions</h3><div class="muted">Aucune transaction pour le moment.</div></div>
+</section>
+
+<section class="view" id="orders">
+<div class="panel">
+<h2>Mes commandes</h2>
+<p class="muted">Suivez les étapes de votre recharge. Le suivi réel sera activé après connexion des API.</p>
+<div class="transaction"><span>1. Commande reçue</span><b>À venir</b></div>
+<div class="transaction"><span>2. Paiement vérifié</span><b>En attente</b></div>
+<div class="transaction"><span>3. Diamonds envoyés</span><b>En attente</b></div>
+<div class="transaction"><span>4. Livraison confirmée</span><b>En attente</b></div>
+<div class="notice"><b>STATUT DÉMONSTRATION</b>Aucune commande réelle ni livraison automatique n'est encore activée.</div>
+</div>
+</section>
+
+<section class="view" id="account">
+<div class="panel">
+<h2>Mon compte</h2>
+<p class="muted">Gérez votre identité et la sécurité de votre compte THE_KING TOP UP.</p>
+<div class="field"><label>Nom complet</label><input placeholder="Votre nom"></div>
+<div class="field"><label>Adresse e-mail</label><input type="email" placeholder="Votre e-mail"></div>
+<div class="field"><label>Numéro de téléphone</label><input placeholder="+509 ..."></div>
+<button class="full" onclick="alert('Profil démo : aucune donnée n’est enregistrée sur un serveur.')">Enregistrer (démo)</button>
+</div>
+</section>
 </main>
-<footer>THE_KING TOP UP 👑<br>Version de démonstration</footer>
+
+<nav class="bottom">
+<button class="nav active" data-view="home" onclick="showView('home')"><span>⌂</span>Accueil</button>
+<button class="nav" data-view="shop" onclick="showView('shop')"><span>▦</span>Boutique</button>
+<button class="nav" data-view="wallet" onclick="showView('wallet')"><span>▣</span>Portefeuille</button>
+<button class="nav" data-view="orders" onclick="showView('orders')"><span>▤</span>Commandes</button>
+<button class="nav" data-view="account" onclick="showView('account')"><span>●</span>Profil</button>
+</nav>
+
+<div class="modal" id="depositModal">
+<div class="sheet">
+<div class="sheettop"><h2>Ajouter des fonds</h2><button class="close" onclick="closeDeposit()">✕</button></div>
+<div class="notice"><b>MODE DÉMONSTRATION</b>Ne transférez pas d'argent. MonCash/NatCash ne sont pas encore connectés et aucun dépôt ne peut être vérifié automatiquement.</div>
+<h3>1. Choisissez votre compte</h3>
+<div class="rowbtn"><button class="secondary">MonCash</button><button class="secondary">NatCash</button></div>
+<div class="panel">
+<b>Compte de réception</b>
+<p class="muted">Les coordonnées officielles du marchand seront ajoutées après validation de l'intégration.</p>
+<p style="color:var(--lime)">Aucune coordonnée de paiement publiée pour le moment.</p>
+</div>
+<h3>2. Confirmez votre dépôt</h3>
+<div class="field"><label>Montant à envoyer (HTG)</label><input type="number" id="depositAmount" placeholder="Ex. 500"></div>
+<div class="field"><label>Numéro de transaction / référence</label><input id="depositRef" placeholder="Référence de transaction"></div>
+<button class="full" onclick="demoDeposit()">Vérifier et créditer (démo)</button>
+<p class="muted">Ce bouton ne crédite aucun solde et ne contacte aucun service de paiement. L'activation nécessitera l'API officielle et un serveur sécurisé.</p>
+</div>
+</div>
+
+<div class="modal" id="buyModal">
+<div class="sheet">
+<div class="sheettop"><h2>Préparer une commande</h2><button class="close" onclick="closeBuy()">✕</button></div>
+<div id="buyDetails"></div>
+<div class="field"><label>ID joueur Free Fire (UID)</label><input id="playerUid" inputmode="numeric" placeholder="Ex. : 1234567890"></div>
+<div class="field"><label>Votre numéro de téléphone</label><input id="playerPhone" placeholder="+509 ..."></div>
+<div class="field"><label>Mode de paiement souhaité</label>
+<select id="paymentMethod"><option value="MonCash">MonCash</option><option value="NatCash">NatCash</option></select>
+</div>
+<div class="panel">
+<b>Comment la livraison fonctionnera</b>
+<p class="muted">1. Vous choisissez votre pack et indiquez votre UID.</p>
+<p class="muted">2. Le paiement sera vérifié par le service de paiement.</p>
+<p class="muted">3. Après confirmation seulement, la recharge sera envoyée via le fournisseur.</p>
+</div>
+<div class="notice"><b>PAIEMENT NON ACTIVÉ</b>Cette version ne prend pas encore d'argent. Ne faites aucun transfert et ne partagez aucun code secret.</div>
+<button class="full" onclick="demoOrder()">Préparer la commande test</button>
+<p class="muted">Le bouton prépare uniquement une simulation. Il ne lance aucun paiement et ne livre pas de Diamonds.</p>
+</div>
+</div>
+
+<footer>THE_KING TOP UP © 2026 · Démonstration indépendante, non affiliée à Garena.</footer>
+
 <script>
-let pack="";
-document.querySelectorAll("[data-pack]").forEach(b=>b.onclick=()=>{
- pack=b.dataset.pack;
- document.querySelectorAll("[data-pack]").forEach(x=>x.classList.remove("selected"));
- b.classList.add("selected");
-});
-document.getElementById("f").onsubmit=e=>{
- e.preventDefault();
- if(!pack){alert("Choisissez un pack");return}
- document.getElementById("result").textContent=
- "TEST uniquement — "+pack+" | UID : "+document.getElementById("uid").value+
- " | Contact : "+document.getElementById("phone").value+
- ". Aucune commande réelle ni aucun paiement effectué.";
-};
+const items=[
+{id:1,name:'100 + 10 Diamonds',price:150,type:'diamond',icon:'💎'},
+{id:2,name:'200 + 20 Diamonds',price:325,type:'diamond',icon:'💎'},
+{id:3,name:'310 + 31 Diamonds',price:500,type:'diamond',icon:'💎'},
+{id:4,name:'520 + 52 Diamonds',price:800,type:'diamond',icon:'💎'},
+{id:5,name:'1 060 + 106 Diamonds',price:1500,type:'diamond',icon:'💎'},
+{id:6,name:'2 180 + 218 Diamonds',price:3100,type:'diamond',icon:'💎'},
+{id:7,name:'5 600 + 560 Diamonds',price:8000,type:'diamond',icon:'💎'},
+{id:8,name:'Booyah Pass',price:550,type:'pass',icon:'🎟'},
+{id:9,name:'Weekly Membership',price:400,type:'member',icon:'👑'},
+{id:10,name:'Monthly Membership',price:1600,type:'member',icon:'👑'}
+];
+let filter='all',chosen=null;
+const money=n=>new Intl.NumberFormat('fr-FR').format(n)+' HTG';
+
+function card(p){
+return `<article class="product"><div class="art">${p.icon}</div><div class="info"><h3>${p.name}</h3><div class="price">${money(p.price)}</div><small>${p.type==='diamond'?'Recharge Free Fire':p.type==='pass'?'Pass de jeu':'Abonnement'}</small><button class="buy" onclick="openBuy(${p.id})">Acheter maintenant</button></div></article>`;
+}
+
+function renderProducts(){
+let q=(document.getElementById('search')?.value||'').toLowerCase();
+let list=items.filter(p=>(filter==='all'||p.type===filter)&&p.name.toLowerCase().includes(q));
+document.getElementById('products').innerHTML=list.map(card).join('');
+document.getElementById('resultCount').textContent=list.length+' résultats';
+}
+
+function setFilter(f,el){
+filter=f;
+document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));
+el.classList.add('active');
+renderProducts();
+}
+
+document.getElementById('homeProducts').innerHTML=items.slice(0,4).map(card).join('');
+renderProducts();
+
+function showView(v){
+document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
+document.getElementById(v).classList.add('active');
+document.querySelectorAll('.nav').forEach(x=>x.classList.toggle('active',x.dataset.view===v));
+window.scrollTo(0,0);
+}
+
+function openBuy(id){
+chosen=items.find(p=>p.id===id);
+document.getElementById('buyDetails').innerHTML=`<div class="panel"><b>${chosen.icon} ${chosen.name}</b><div class="balance" style="font-size:25px;color:var(--lime)">${money(chosen.price)}</div></div>`;
+document.getElementById('buyModal').classList.add('show');
+}
+
+function closeBuy(){document.getElementById('buyModal').classList.remove('show')}
+
+function demoOrder(){
+let uid=document.getElementById('playerUid').value.trim();
+let phone=document.getElementById('playerPhone').value.trim();
+if(!/^[0-9]{6,20}$/.test(uid)){alert('Entrez un UID Free Fire valide.');return}
+if(!phone){alert('Entrez votre numéro de téléphone.');return}
+const method=document.getElementById('paymentMethod').value;
+alert('COMMANDE TEST PRÉPARÉE\nProduit : '+chosen.name+'\nPrix : '+money(chosen.price)+'\nUID : '+uid+'\nPaiement choisi : '+method+'\n\nStatut : EN ATTENTE — démonstration uniquement. Aucun paiement n’a été lancé et aucun Diamond ne sera livré.');
+closeBuy();
+showView('orders');
+}
+
+function openDeposit(){document.getElementById('depositModal').classList.add('show')}
+function closeDeposit(){document.getElementById('depositModal').classList.remove('show')}
+function demoDeposit(){alert('Démonstration uniquement : aucun paiement vérifié et aucun solde crédité.')}
 </script>
 </body>
 </html>
